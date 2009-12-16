@@ -1,0 +1,29 @@
+text size :   1322(0x0052A)
+data size :     41(0x00029)
+bss  size :      0(0x00000)
+
+0x00000024 : (.text)
+0x00000024 : _printf
+0x00000053 : _CHNMain
+0x00000067 : _api_putstr0
+0x00000067 : (.text)
+0x00000075 : _api_end
+0x00000075 : (.text)
+0x0000007C : (.text)
+0x0000007C : _CHNStartup
+0x00000085 : (.text)
+0x000000C1 : _strtoul0
+0x00000194 : (.text)
+0x000001BC : _vsprintf
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000400 : (.data)
+0x00000409 : (.data)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
