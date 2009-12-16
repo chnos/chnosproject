@@ -1,0 +1,78 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_vsprintf
+     7 00000000                                 	EXTERN	_api_putstr0
+     8 00000000                                 	EXTERN	_api_getlang
+     9 00000000                                 	EXTERN	_api_end
+    10 00000000                                 [FILE "chklang.ca"]
+    11                                          [SECTION .text]
+    12 00000000                                 	GLOBAL	_printf
+    13 00000000                                 _printf:
+    14 00000000 55                              	PUSH	EBP
+    15 00000001 89 E5                           	MOV	EBP,ESP
+    16 00000003 56                              	PUSH	ESI
+    17 00000004 53                              	PUSH	EBX
+    18 00000005 81 EC 000003F0                  	SUB	ESP,1008
+    19 0000000B 8D 45 0C                        	LEA	EAX,DWORD [12+EBP]
+    20 0000000E 8D 9D FFFFFC08                  	LEA	EBX,DWORD [-1016+EBP]
+    21 00000014 50                              	PUSH	EAX
+    22 00000015 FF 75 08                        	PUSH	DWORD [8+EBP]
+    23 00000018 53                              	PUSH	EBX
+    24 00000019 E8 [00000000]                   	CALL	_vsprintf
+    25 0000001E 53                              	PUSH	EBX
+    26 0000001F 89 C6                           	MOV	ESI,EAX
+    27 00000021 E8 [00000000]                   	CALL	_api_putstr0
+    28 00000026 8D 65 F8                        	LEA	ESP,DWORD [-8+EBP]
+    29 00000029 89 F0                           	MOV	EAX,ESI
+    30 0000002B 5B                              	POP	EBX
+    31 0000002C 5E                              	POP	ESI
+    32 0000002D 5D                              	POP	EBP
+    33 0000002E C3                              	RET
+    34                                          [SECTION .data]
+    35 00000000                                 LC2:
+    36 00000000 93 FA 96 7B 8C EA 82 64 82 74   	DB	0x93,0xFA,0x96,"{",0x8C,0xEA,0x82,"d",0x82,"t",0x82,"b",0x83,0x82,0x81,"[",0x83,"h",0x0A,0x00
+       0000000A 82 62 83 82 81 5B 83 68 0A 00 
+    37 00000014                                 LC1:
+    38 00000014 83 56 83 74 83 67 82 69 82 68   	DB	0x83,"V",0x83,"t",0x83,"g",0x82,"i",0x82,"h",0x82,"r",0x83,0x82,0x81,"[",0x83,"h",0x0A,0x00
+       0000001E 82 72 83 82 81 5B 83 68 0A 00 
+    39 00000028                                 LC0:
+    40 00000028 45 6E 67 6C 69 73 68 20 41 53   	DB	"English ASCII mode",0x0A,0x00
+       00000032 43 49 49 20 6D 6F 64 65 0A 00 
+    41                                          [SECTION .text]
+    42 0000002F                                 	GLOBAL	_CHNMain
+    43 0000002F                                 _CHNMain:
+    44 0000002F 55                              	PUSH	EBP
+    45 00000030 89 E5                           	MOV	EBP,ESP
+    46 00000032 53                              	PUSH	EBX
+    47 00000033 E8 [00000000]                   	CALL	_api_getlang
+    48 00000038 89 C3                           	MOV	EBX,EAX
+    49 0000003A 85 C0                           	TEST	EAX,EAX
+    50 0000003C 74 2D                           	JE	L6
+    51 0000003E                                 L3:
+    52 0000003E 83 FB 01                        	CMP	EBX,1
+    53 00000041 74 1B                           	JE	L7
+    54 00000043                                 L4:
+    55 00000043 83 FB 02                        	CMP	EBX,2
+    56 00000046 74 09                           	JE	L8
+    57 00000048                                 L5:
+    58 00000048 8B 5D FC                        	MOV	EBX,DWORD [-4+EBP]
+    59 0000004B C9                              	LEAVE
+    60 0000004C E9 [00000000]                   	JMP	_api_end
+    61 00000051                                 L8:
+    62 00000051 68 [00000000]                   	PUSH	LC2
+    63 00000056 E8 FFFFFFA5                     	CALL	_printf
+    64 0000005B 58                              	POP	EAX
+    65 0000005C EB EA                           	JMP	L5
+    66 0000005E                                 L7:
+    67 0000005E 68 [00000014]                   	PUSH	LC1
+    68 00000063 E8 FFFFFF98                     	CALL	_printf
+    69 00000068 5A                              	POP	EDX
+    70 00000069 EB D8                           	JMP	L4
+    71 0000006B                                 L6:
+    72 0000006B 68 [00000028]                   	PUSH	LC0
+    73 00000070 E8 FFFFFF8B                     	CALL	_printf
+    74 00000075 59                              	POP	ECX
+    75 00000076 EB C6                           	JMP	L3
