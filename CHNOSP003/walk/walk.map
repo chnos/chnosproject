@@ -1,0 +1,57 @@
+text size :   1730(0x006C2)
+data size :     39(0x00027)
+bss  size :      0(0x00000)
+
+0x00000024 : (.text)
+0x00000024 : _printf
+0x00000053 : _CHNMain
+0x0000013D : _api_putstr0
+0x0000013D : (.text)
+0x0000014B : _api_end
+0x0000014B : (.text)
+0x00000152 : _api_openwin
+0x00000152 : (.text)
+0x00000174 : _api_putstrwin
+0x00000174 : (.text)
+0x0000019C : _api_boxfilwin
+0x0000019C : (.text)
+0x000001C4 : _api_initmalloc
+0x000001C4 : (.text)
+0x000001E5 : _api_malloc
+0x000001E5 : (.text)
+0x000001FA : _api_closewin
+0x000001FA : (.text)
+0x00000208 : _api_getkey
+0x00000208 : (.text)
+0x00000214 : (.text)
+0x00000214 : _CHNStartup
+0x0000021D : (.text)
+0x00000259 : _strtoul0
+0x0000032C : (.text)
+0x00000354 : _vsprintf
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000400 : (.data)
+0x00000407 : (.data)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
