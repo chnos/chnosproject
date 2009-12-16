@@ -1,0 +1,41 @@
+text size :   1488(0x005D0)
+data size :     49(0x00031)
+bss  size :      0(0x00000)
+
+0x00000024 : (.text)
+0x00000024 : _printf
+0x00000053 : _NhMain
+0x000000C4 : _api_putstr0
+0x000000C4 : (.text)
+0x000000D2 : _api_openwin
+0x000000D2 : (.text)
+0x000000F4 : __alloca
+0x000000F4 : (.text)
+0x000000FC : _tomo_getmouse
+0x000000FC : (.text)
+0x0000010E : (.text)
+0x0000010E : _NhStartup
+0x00000117 : _sprintf
+0x00000117 : (.text)
+0x0000012B : (.text)
+0x00000167 : _strtoul0
+0x0000023A : (.text)
+0x00000262 : _vsprintf
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00007800 : (.data)
+0x00007811 : (.data)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
