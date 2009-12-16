@@ -1,0 +1,1340 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_io_out8
+     7 00000000                                 	EXTERN	_io_in8
+     8 00000000                                 	EXTERN	_io_in16
+     9 00000000                                 	EXTERN	_io_out16
+    10 00000000                                 [FILE "ide.ca"]
+    11                                          [SECTION .text]
+    12 00000000                                 	GLOBAL	_IDEDriver_IDEDriver
+    13 00000000                                 _IDEDriver_IDEDriver:
+    14 00000000 55                              	PUSH	EBP
+    15 00000001 89 E5                           	MOV	EBP,ESP
+    16 00000003 53                              	PUSH	EBX
+    17 00000004 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+    18 00000007 8B 45 0C                        	MOV	EAX,DWORD [12+EBP]
+    19 0000000A 88 03                           	MOV	BYTE [EBX],AL
+    20 0000000C 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+    21 0000000F 88 43 50                        	MOV	BYTE [80+EBX],AL
+    22 00000012 C7 43 04 000001F0               	MOV	DWORD [4+EBX],496
+    23 00000019 C7 43 08 000001F1               	MOV	DWORD [8+EBX],497
+    24 00000020 C7 43 0C 000001F2               	MOV	DWORD [12+EBX],498
+    25 00000027 C7 43 10 000001F3               	MOV	DWORD [16+EBX],499
+    26 0000002E C7 43 14 000001F4               	MOV	DWORD [20+EBX],500
+    27 00000035 C7 43 18 000001F5               	MOV	DWORD [24+EBX],501
+    28 0000003C C7 43 1C 000001F6               	MOV	DWORD [28+EBX],502
+    29 00000043 C7 43 20 000001F7               	MOV	DWORD [32+EBX],503
+    30 0000004A C7 43 24 000003F6               	MOV	DWORD [36+EBX],1014
+    31 00000051 C7 43 4C 00000000               	MOV	DWORD [76+EBX],0
+    32 00000058 C7 43 54 00000170               	MOV	DWORD [84+EBX],368
+    33 0000005F C7 43 58 00000171               	MOV	DWORD [88+EBX],369
+    34 00000066 C7 43 5C 00000172               	MOV	DWORD [92+EBX],370
+    35 0000006D C7 43 60 00000173               	MOV	DWORD [96+EBX],371
+    36 00000074 C7 43 64 00000174               	MOV	DWORD [100+EBX],372
+    37 0000007B C7 43 68 00000175               	MOV	DWORD [104+EBX],373
+    38 00000082 C7 43 6C 00000176               	MOV	DWORD [108+EBX],374
+    39 00000089 C7 43 70 00000177               	MOV	DWORD [112+EBX],375
+    40 00000090 C7 43 74 00000376               	MOV	DWORD [116+EBX],886
+    41 00000097 C7 83 0000009C 00000000         	MOV	DWORD [156+EBX],0
+    42 000000A1 53                              	PUSH	EBX
+    43 000000A2 53                              	PUSH	EBX
+    44 000000A3 E8 000008C2                     	CALL	_IDEDriver_initialize
+    45 000000A8 8D 43 50                        	LEA	EAX,DWORD [80+EBX]
+    46 000000AB 50                              	PUSH	EAX
+    47 000000AC 53                              	PUSH	EBX
+    48 000000AD E8 000008B8                     	CALL	_IDEDriver_initialize
+    49 000000B2 C7 83 000000A0 00000000         	MOV	DWORD [160+EBX],0
+    50 000000BC C7 83 000000A4 00000000         	MOV	DWORD [164+EBX],0
+    51 000000C6 C7 83 000000A8 00000001         	MOV	DWORD [168+EBX],1
+    52 000000D0 8B 5D FC                        	MOV	EBX,DWORD [-4+EBP]
+    53 000000D3 C9                              	LEAVE
+    54 000000D4 C3                              	RET
+    55 000000D5                                 	GLOBAL	_IDEDriver_selectDevice
+    56 000000D5                                 _IDEDriver_selectDevice:
+    57 000000D5 55                              	PUSH	EBP
+    58 000000D6 89 E5                           	MOV	EBP,ESP
+    59 000000D8 56                              	PUSH	ESI
+    60 000000D9 53                              	PUSH	EBX
+    61 000000DA 31 F6                           	XOR	ESI,ESI
+    62 000000DC 8B 4D 0C                        	MOV	ECX,DWORD [12+EBP]
+    63 000000DF 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+    64 000000E2 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+    65 000000E5 83 F9 01                        	CMP	ECX,1
+    66 000000E8 77 34                           	JA	L2
+    67 000000EA 31 F6                           	XOR	ESI,ESI
+    68 000000EC 83 FA 01                        	CMP	EDX,1
+    69 000000EF 77 2D                           	JA	L2
+    70 000000F1 6B C1 05                        	IMUL	EAX,ECX,5
+    71 000000F4 01 D0                           	ADD	EAX,EDX
+    72 000000F6 31 F6                           	XOR	ESI,ESI
+    73 000000F8 C1 E0 04                        	SAL	EAX,4
+    74 000000FB 01 D8                           	ADD	EAX,EBX
+    75 000000FD 8D 50 2C                        	LEA	EDX,DWORD [44+EAX]
+    76 00000100 8B 40 2C                        	MOV	EAX,DWORD [44+EAX]
+    77 00000103 83 E8 02                        	SUB	EAX,2
+    78 00000106 83 F8 01                        	CMP	EAX,1
+    79 00000109 76 13                           	JBE	L2
+    80 0000010B 6B C1 50                        	IMUL	EAX,ECX,80
+    81 0000010E 01 D8                           	ADD	EAX,EBX
+    82 00000110 BE 00000001                     	MOV	ESI,1
+    83 00000115 89 83 000000A0                  	MOV	DWORD [160+EBX],EAX
+    84 0000011B 89 50 4C                        	MOV	DWORD [76+EAX],EDX
+    85 0000011E                                 L2:
+    86 0000011E 5B                              	POP	EBX
+    87 0000011F 89 F0                           	MOV	EAX,ESI
+    88 00000121 5E                              	POP	ESI
+    89 00000122 5D                              	POP	EBP
+    90 00000123 C3                              	RET
+    91 00000124                                 	GLOBAL	_IDEDriver_findDevice
+    92 00000124                                 _IDEDriver_findDevice:
+    93 00000124 55                              	PUSH	EBP
+    94 00000125 31 C9                           	XOR	ECX,ECX
+    95 00000127 89 E5                           	MOV	EBP,ESP
+    96 00000129 57                              	PUSH	EDI
+    97 0000012A 56                              	PUSH	ESI
+    98 0000012B 53                              	PUSH	EBX
+    99 0000012C 8B 7D 0C                        	MOV	EDI,DWORD [12+EBP]
+   100 0000012F 8B 75 10                        	MOV	ESI,DWORD [16+EBP]
+   101 00000132 31 DB                           	XOR	EBX,EBX
+   102 00000134                                 L18:
+   103 00000134 89 D8                           	MOV	EAX,EBX
+   104 00000136 31 D2                           	XOR	EDX,EDX
+   105 00000138 C1 E0 04                        	SAL	EAX,4
+   106 0000013B 03 45 08                        	ADD	EAX,DWORD [8+EBP]
+   107 0000013E                                 L17:
+   108 0000013E 3B 78 2C                        	CMP	EDI,DWORD [44+EAX]
+   109 00000141 74 19                           	JE	L23
+   110 00000143                                 L13:
+   111 00000143 42                              	INC	EDX
+   112 00000144 83 C0 10                        	ADD	EAX,16
+   113 00000147 83 FA 01                        	CMP	EDX,1
+   114 0000014A 7E F2                           	JLE	L17
+   115 0000014C 41                              	INC	ECX
+   116 0000014D 83 C3 05                        	ADD	EBX,5
+   117 00000150 83 F9 01                        	CMP	ECX,1
+   118 00000153 7E DF                           	JLE	L18
+   119 00000155 31 C0                           	XOR	EAX,EAX
+   120 00000157                                 L6:
+   121 00000157 5B                              	POP	EBX
+   122 00000158 5E                              	POP	ESI
+   123 00000159 5F                              	POP	EDI
+   124 0000015A 5D                              	POP	EBP
+   125 0000015B C3                              	RET
+   126 0000015C                                 L23:
+   127 0000015C 3B 70 30                        	CMP	ESI,DWORD [48+EAX]
+   128 0000015F 75 E2                           	JNE	L13
+   129 00000161 8B 45 14                        	MOV	EAX,DWORD [20+EBP]
+   130 00000164 89 08                           	MOV	DWORD [EAX],ECX
+   131 00000166 8B 45 18                        	MOV	EAX,DWORD [24+EBP]
+   132 00000169 89 10                           	MOV	DWORD [EAX],EDX
+   133 0000016B B8 00000001                     	MOV	EAX,1
+   134 00000170 EB E5                           	JMP	L6
+   135 00000172                                 	GLOBAL	_IDEDriver_read
+   136 00000172                                 _IDEDriver_read:
+   137 00000172 55                              	PUSH	EBP
+   138 00000173 89 E5                           	MOV	EBP,ESP
+   139 00000175 57                              	PUSH	EDI
+   140 00000176 56                              	PUSH	ESI
+   141 00000177 53                              	PUSH	EBX
+   142 00000178 83 EC 0C                        	SUB	ESP,12
+   143 0000017B 8B 45 08                        	MOV	EAX,DWORD [8+EBP]
+   144 0000017E 8B 90 000000A0                  	MOV	EDX,DWORD [160+EAX]
+   145 00000184 B8 00000001                     	MOV	EAX,1
+   146 00000189 85 D2                           	TEST	EDX,EDX
+   147 0000018B 74 16                           	JE	L24
+   148 0000018D 8B 42 4C                        	MOV	EAX,DWORD [76+EDX]
+   149 00000190 8B 00                           	MOV	EAX,DWORD [EAX]
+   150 00000192 83 F8 05                        	CMP	EAX,5
+   151 00000195 74 14                           	JE	L48
+   152 00000197 83 F8 04                        	CMP	EAX,4
+   153 0000019A 0F 95 C0                        	SETNE	AL
+   154 0000019D 0F B6 C0                        	MOVZX	EAX,AL
+   155 000001A0 83 C0 04                        	ADD	EAX,4
+   156 000001A3                                 L24:
+   157 000001A3 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   158 000001A6 5B                              	POP	EBX
+   159 000001A7 5E                              	POP	ESI
+   160 000001A8 5F                              	POP	EDI
+   161 000001A9 5D                              	POP	EBP
+   162 000001AA C3                              	RET
+   163 000001AB                                 L48:
+   164 000001AB 8B 4D 14                        	MOV	ECX,DWORD [20+EBP]
+   165 000001AE BA 0000F800                     	MOV	EDX,63488
+   166 000001B3 81 C1 0000F7FF                  	ADD	ECX,63487
+   167 000001B9 89 D3                           	MOV	EBX,EDX
+   168 000001BB 89 C8                           	MOV	EAX,ECX
+   169 000001BD 99                              	CDQ
+   170 000001BE F7 FB                           	IDIV	EBX
+   171 000001C0 C7 45 F0 00000000               	MOV	DWORD [-16+EBP],0
+   172 000001C7 89 C7                           	MOV	EDI,EAX
+   173 000001C9 39 45 F0                        	CMP	DWORD [-16+EBP],EAX
+   174 000001CC 7D 5A                           	JGE	L45
+   175 000001CE 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   176 000001D1 C7 45 E8 00000000               	MOV	DWORD [-24+EBP],0
+   177 000001D8                                 L40:
+   178 000001D8 8D 47 FF                        	LEA	EAX,DWORD [-1+EDI]
+   179 000001DB C7 45 EC 0000F800               	MOV	DWORD [-20+EBP],63488
+   180 000001E2 39 45 F0                        	CMP	DWORD [-16+EBP],EAX
+   181 000001E5 74 56                           	JE	L49
+   182 000001E7                                 L32:
+   183 000001E7 31 DB                           	XOR	EBX,EBX
+   184 000001E9                                 L38:
+   185 000001E9 FF 75 EC                        	PUSH	DWORD [-20+EBP]
+   186 000001EC FF 75 10                        	PUSH	DWORD [16+EBP]
+   187 000001EF 8B 55 08                        	MOV	EDX,DWORD [8+EBP]
+   188 000001F2 56                              	PUSH	ESI
+   189 000001F3 FF B2 000000A0                  	PUSH	DWORD [160+EDX]
+   190 000001F9 52                              	PUSH	EDX
+   191 000001FA E8 00000640                     	CALL	_IDEDriver_commandRead10
+   192 000001FF 83 C4 14                        	ADD	ESP,20
+   193 00000202 84 C0                           	TEST	AL,AL
+   194 00000204 75 06                           	JNE	L34
+   195 00000206 43                              	INC	EBX
+   196 00000207 83 FB 13                        	CMP	EBX,19
+   197 0000020A 7E DD                           	JLE	L38
+   198 0000020C                                 L34:
+   199 0000020C 8B 5D EC                        	MOV	EBX,DWORD [-20+EBP]
+   200 0000020F 01 5D 10                        	ADD	DWORD [16+EBP],EBX
+   201 00000212 84 C0                           	TEST	AL,AL
+   202 00000214 74 19                           	JE	L47
+   203 00000216 FF 45 F0                        	INC	DWORD [-16+EBP]
+   204 00000219 83 C6 1F                        	ADD	ESI,31
+   205 0000021C 81 45 E8 0000F800               	ADD	DWORD [-24+EBP],63488
+   206 00000223 39 7D F0                        	CMP	DWORD [-16+EBP],EDI
+   207 00000226 7C B0                           	JL	L40
+   208 00000228                                 L45:
+   209 00000228 31 C0                           	XOR	EAX,EAX
+   210 0000022A E9 FFFFFF74                     	JMP	L24
+   211 0000022F                                 L47:
+   212 0000022F 8B 55 08                        	MOV	EDX,DWORD [8+EBP]
+   213 00000232 8B 82 000000C8                  	MOV	EAX,DWORD [200+EDX]
+   214 00000238 E9 FFFFFF66                     	JMP	L24
+   215 0000023D                                 L49:
+   216 0000023D 8B 45 14                        	MOV	EAX,DWORD [20+EBP]
+   217 00000240 2B 45 E8                        	SUB	EAX,DWORD [-24+EBP]
+   218 00000243 89 45 EC                        	MOV	DWORD [-20+EBP],EAX
+   219 00000246 EB 9F                           	JMP	L32
+   220 00000248                                 	GLOBAL	_IDEDriver_outp8
+   221 00000248                                 _IDEDriver_outp8:
+   222 00000248 55                              	PUSH	EBP
+   223 00000249 89 E5                           	MOV	EBP,ESP
+   224 0000024B 0F B6 45 14                     	MOVZX	EAX,BYTE [20+EBP]
+   225 0000024F 8B 55 0C                        	MOV	EDX,DWORD [12+EBP]
+   226 00000252 89 45 0C                        	MOV	DWORD [12+EBP],EAX
+   227 00000255 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+   228 00000258 8B 44 82 04                     	MOV	EAX,DWORD [4+EDX+EAX*4]
+   229 0000025C 89 45 08                        	MOV	DWORD [8+EBP],EAX
+   230 0000025F 5D                              	POP	EBP
+   231 00000260 E9 [00000000]                   	JMP	_io_out8
+   232 00000265                                 	GLOBAL	_IDEDriver_inp8
+   233 00000265                                 _IDEDriver_inp8:
+   234 00000265 55                              	PUSH	EBP
+   235 00000266 89 E5                           	MOV	EBP,ESP
+   236 00000268 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+   237 0000026B 8B 45 0C                        	MOV	EAX,DWORD [12+EBP]
+   238 0000026E FF 74 90 04                     	PUSH	DWORD [4+EAX+EDX*4]
+   239 00000272 E8 [00000000]                   	CALL	_io_in8
+   240 00000277 0F B6 C0                        	MOVZX	EAX,AL
+   241 0000027A C9                              	LEAVE
+   242 0000027B C3                              	RET
+   243 0000027C                                 	GLOBAL	_IDEDriver_inp16
+   244 0000027C                                 _IDEDriver_inp16:
+   245 0000027C 55                              	PUSH	EBP
+   246 0000027D 89 E5                           	MOV	EBP,ESP
+   247 0000027F 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+   248 00000282 8B 45 0C                        	MOV	EAX,DWORD [12+EBP]
+   249 00000285 FF 74 90 04                     	PUSH	DWORD [4+EAX+EDX*4]
+   250 00000289 E8 [00000000]                   	CALL	_io_in16
+   251 0000028E 0F B7 C0                        	MOVZX	EAX,AX
+   252 00000291 C9                              	LEAVE
+   253 00000292 C3                              	RET
+   254 00000293                                 	GLOBAL	_IDEDriver_outp16
+   255 00000293                                 _IDEDriver_outp16:
+   256 00000293 55                              	PUSH	EBP
+   257 00000294 89 E5                           	MOV	EBP,ESP
+   258 00000296 0F B7 45 14                     	MOVZX	EAX,WORD [20+EBP]
+   259 0000029A 8B 55 0C                        	MOV	EDX,DWORD [12+EBP]
+   260 0000029D 89 45 0C                        	MOV	DWORD [12+EBP],EAX
+   261 000002A0 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+   262 000002A3 8B 44 82 04                     	MOV	EAX,DWORD [4+EDX+EAX*4]
+   263 000002A7 89 45 08                        	MOV	DWORD [8+EBP],EAX
+   264 000002AA 5D                              	POP	EBP
+   265 000002AB E9 [00000000]                   	JMP	_io_out16
+   266 000002B0                                 	GLOBAL	_IDEDriver_outp16_2
+   267 000002B0                                 _IDEDriver_outp16_2:
+   268 000002B0 55                              	PUSH	EBP
+   269 000002B1 89 E5                           	MOV	EBP,ESP
+   270 000002B3 57                              	PUSH	EDI
+   271 000002B4 56                              	PUSH	ESI
+   272 000002B5 8B 45 14                        	MOV	EAX,DWORD [20+EBP]
+   273 000002B8 53                              	PUSH	EBX
+   274 000002B9 8B 7D 0C                        	MOV	EDI,DWORD [12+EBP]
+   275 000002BC 8B 75 10                        	MOV	ESI,DWORD [16+EBP]
+   276 000002BF 85 C0                           	TEST	EAX,EAX
+   277 000002C1 7E 1A                           	JLE	L61
+   278 000002C3 89 C3                           	MOV	EBX,EAX
+   279 000002C5                                 L59:
+   280 000002C5 0F B7 06                        	MOVZX	EAX,WORD [ESI]
+   281 000002C8 50                              	PUSH	EAX
+   282 000002C9 83 C6 02                        	ADD	ESI,2
+   283 000002CC 6A 00                           	PUSH	0
+   284 000002CE 57                              	PUSH	EDI
+   285 000002CF FF 75 08                        	PUSH	DWORD [8+EBP]
+   286 000002D2 E8 FFFFFFBC                     	CALL	_IDEDriver_outp16
+   287 000002D7 83 C4 10                        	ADD	ESP,16
+   288 000002DA 4B                              	DEC	EBX
+   289 000002DB 75 E8                           	JNE	L59
+   290 000002DD                                 L61:
+   291 000002DD 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   292 000002E0 5B                              	POP	EBX
+   293 000002E1 5E                              	POP	ESI
+   294 000002E2 5F                              	POP	EDI
+   295 000002E3 5D                              	POP	EBP
+   296 000002E4 C3                              	RET
+   297 000002E5                                 	GLOBAL	_IDEDriver_inp16_2
+   298 000002E5                                 _IDEDriver_inp16_2:
+   299 000002E5 55                              	PUSH	EBP
+   300 000002E6 BA 00000002                     	MOV	EDX,2
+   301 000002EB 89 E5                           	MOV	EBP,ESP
+   302 000002ED 89 D1                           	MOV	ECX,EDX
+   303 000002EF 57                              	PUSH	EDI
+   304 000002F0 8B 45 14                        	MOV	EAX,DWORD [20+EBP]
+   305 000002F3 56                              	PUSH	ESI
+   306 000002F4 99                              	CDQ
+   307 000002F5 F7 F9                           	IDIV	ECX
+   308 000002F7 8B 7D 10                        	MOV	EDI,DWORD [16+EBP]
+   309 000002FA 53                              	PUSH	EBX
+   310 000002FB 85 FF                           	TEST	EDI,EDI
+   311 000002FD 89 C3                           	MOV	EBX,EAX
+   312 000002FF 74 27                           	JE	L77
+   313 00000301 85 C0                           	TEST	EAX,EAX
+   314 00000303 7E 1B                           	JLE	L62
+   315 00000305 89 C6                           	MOV	ESI,EAX
+   316 00000307                                 L74:
+   317 00000307 6A 00                           	PUSH	0
+   318 00000309 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   319 0000030C FF 75 08                        	PUSH	DWORD [8+EBP]
+   320 0000030F E8 FFFFFF68                     	CALL	_IDEDriver_inp16
+   321 00000314 83 C4 0C                        	ADD	ESP,12
+   322 00000317 66 89 07                        	MOV	WORD [EDI],AX
+   323 0000031A 83 C7 02                        	ADD	EDI,2
+   324 0000031D 4E                              	DEC	ESI
+   325 0000031E 75 E7                           	JNE	L74
+   326 00000320                                 L62:
+   327 00000320 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   328 00000323 5B                              	POP	EBX
+   329 00000324 5E                              	POP	ESI
+   330 00000325 5F                              	POP	EDI
+   331 00000326 5D                              	POP	EBP
+   332 00000327 C3                              	RET
+   333 00000328                                 L77:
+   334 00000328 31 F6                           	XOR	ESI,ESI
+   335 0000032A 39 C7                           	CMP	EDI,EAX
+   336 0000032C 7D F2                           	JGE	L62
+   337 0000032E                                 L68:
+   338 0000032E 6A 00                           	PUSH	0
+   339 00000330 46                              	INC	ESI
+   340 00000331 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   341 00000334 FF 75 08                        	PUSH	DWORD [8+EBP]
+   342 00000337 E8 FFFFFF40                     	CALL	_IDEDriver_inp16
+   343 0000033C 83 C4 0C                        	ADD	ESP,12
+   344 0000033F 39 DE                           	CMP	ESI,EBX
+   345 00000341 7C EB                           	JL	L68
+   346 00000343 EB DB                           	JMP	L62
+   347 00000345                                 	GLOBAL	_IDEDriver_waitBusyAndDataRequestBothClear
+   348 00000345                                 _IDEDriver_waitBusyAndDataRequestBothClear:
+   349 00000345 55                              	PUSH	EBP
+   350 00000346 89 E5                           	MOV	EBP,ESP
+   351 00000348 57                              	PUSH	EDI
+   352 00000349 56                              	PUSH	ESI
+   353 0000034A 53                              	PUSH	EBX
+   354 0000034B 8B 7D 08                        	MOV	EDI,DWORD [8+EBP]
+   355 0000034E 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   356 00000351 31 DB                           	XOR	EBX,EBX
+   357 00000353                                 L84:
+   358 00000353 6A 08                           	PUSH	8
+   359 00000355 56                              	PUSH	ESI
+   360 00000356 57                              	PUSH	EDI
+   361 00000357 E8 FFFFFF09                     	CALL	_IDEDriver_inp8
+   362 0000035C 83 C4 0C                        	ADD	ESP,12
+   363 0000035F A9 00000088                     	TEST	EAX,136
+   364 00000364 74 09                           	JE	L80
+   365 00000366 43                              	INC	EBX
+   366 00000367 81 FB 0001869F                  	CMP	EBX,99999
+   367 0000036D 76 E4                           	JBE	L84
+   368 0000036F                                 L80:
+   369 0000036F 31 C0                           	XOR	EAX,EAX
+   370 00000371 81 FB 000186A0                  	CMP	EBX,100000
+   371 00000377 0F 95 C0                        	SETNE	AL
+   372 0000037A 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   373 0000037D 5B                              	POP	EBX
+   374 0000037E 5E                              	POP	ESI
+   375 0000037F 5F                              	POP	EDI
+   376 00000380 5D                              	POP	EBP
+   377 00000381 C3                              	RET
+   378 00000382                                 	GLOBAL	_IDEDriver_waitBusyClear
+   379 00000382                                 _IDEDriver_waitBusyClear:
+   380 00000382 55                              	PUSH	EBP
+   381 00000383 89 E5                           	MOV	EBP,ESP
+   382 00000385 57                              	PUSH	EDI
+   383 00000386 56                              	PUSH	ESI
+   384 00000387 53                              	PUSH	EBX
+   385 00000388 8B 7D 08                        	MOV	EDI,DWORD [8+EBP]
+   386 0000038B 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   387 0000038E 31 DB                           	XOR	EBX,EBX
+   388 00000390                                 L92:
+   389 00000390 6A 08                           	PUSH	8
+   390 00000392 56                              	PUSH	ESI
+   391 00000393 57                              	PUSH	EDI
+   392 00000394 E8 FFFFFECC                     	CALL	_IDEDriver_inp8
+   393 00000399 83 C4 0C                        	ADD	ESP,12
+   394 0000039C 84 C0                           	TEST	AL,AL
+   395 0000039E 79 09                           	JNS	L88
+   396 000003A0 43                              	INC	EBX
+   397 000003A1 81 FB 0001869F                  	CMP	EBX,99999
+   398 000003A7 76 E7                           	JBE	L92
+   399 000003A9                                 L88:
+   400 000003A9 31 C0                           	XOR	EAX,EAX
+   401 000003AB 81 FB 000186A0                  	CMP	EBX,100000
+   402 000003B1 0F 95 C0                        	SETNE	AL
+   403 000003B4 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   404 000003B7 5B                              	POP	EBX
+   405 000003B8 5E                              	POP	ESI
+   406 000003B9 5F                              	POP	EDI
+   407 000003BA 5D                              	POP	EBP
+   408 000003BB C3                              	RET
+   409 000003BC                                 	GLOBAL	_IDEDriver_waitDrdySet
+   410 000003BC                                 _IDEDriver_waitDrdySet:
+   411 000003BC 55                              	PUSH	EBP
+   412 000003BD 89 E5                           	MOV	EBP,ESP
+   413 000003BF 57                              	PUSH	EDI
+   414 000003C0 56                              	PUSH	ESI
+   415 000003C1 53                              	PUSH	EBX
+   416 000003C2 8B 7D 08                        	MOV	EDI,DWORD [8+EBP]
+   417 000003C5 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   418 000003C8 31 DB                           	XOR	EBX,EBX
+   419 000003CA                                 L100:
+   420 000003CA 6A 08                           	PUSH	8
+   421 000003CC 56                              	PUSH	ESI
+   422 000003CD 57                              	PUSH	EDI
+   423 000003CE E8 FFFFFE92                     	CALL	_IDEDriver_inp8
+   424 000003D3 83 C4 0C                        	ADD	ESP,12
+   425 000003D6 83 E0 40                        	AND	EAX,64
+   426 000003D9 84 C0                           	TEST	AL,AL
+   427 000003DB 75 09                           	JNE	L96
+   428 000003DD 43                              	INC	EBX
+   429 000003DE 81 FB 0001869F                  	CMP	EBX,99999
+   430 000003E4 76 E4                           	JBE	L100
+   431 000003E6                                 L96:
+   432 000003E6 31 C0                           	XOR	EAX,EAX
+   433 000003E8 81 FB 000186A0                  	CMP	EBX,100000
+   434 000003EE 0F 95 C0                        	SETNE	AL
+   435 000003F1 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   436 000003F4 5B                              	POP	EBX
+   437 000003F5 5E                              	POP	ESI
+   438 000003F6 5F                              	POP	EDI
+   439 000003F7 5D                              	POP	EBP
+   440 000003F8 C3                              	RET
+   441 000003F9                                 	GLOBAL	_IDEDriver_protocolPacket
+   442 000003F9                                 _IDEDriver_protocolPacket:
+   443 000003F9 55                              	PUSH	EBP
+   444 000003FA 89 E5                           	MOV	EBP,ESP
+   445 000003FC 57                              	PUSH	EDI
+   446 000003FD 56                              	PUSH	ESI
+   447 000003FE 53                              	PUSH	EBX
+   448 000003FF 8B 75 08                        	MOV	ESI,DWORD [8+EBP]
+   449 00000402 6A 08                           	PUSH	8
+   450 00000404 6A 08                           	PUSH	8
+   451 00000406 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   452 00000409 56                              	PUSH	ESI
+   453 0000040A E8 FFFFFE39                     	CALL	_IDEDriver_outp8
+   454 0000040F 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+   455 00000412 C7 86 000000A8 00000000         	MOV	DWORD [168+ESI],0
+   456 0000041C 8B 42 10                        	MOV	EAX,DWORD [16+EDX]
+   457 0000041F 89 86 000000A4                  	MOV	DWORD [164+ESI],EAX
+   458 00000425 0F B7 42 0E                     	MOVZX	EAX,WORD [14+EDX]
+   459 00000429 89 86 000000B0                  	MOV	DWORD [176+ESI],EAX
+   460 0000042F 0F B6 42 01                     	MOVZX	EAX,BYTE [1+EDX]
+   461 00000433 50                              	PUSH	EAX
+   462 00000434 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   463 00000437 56                              	PUSH	ESI
+   464 00000438 E8 000007E4                     	CALL	_IDEDriver_selectDevice_2
+   465 0000043D 83 C4 1C                        	ADD	ESP,28
+   466 00000440 84 C0                           	TEST	AL,AL
+   467 00000442 75 14                           	JNE	L103
+   468 00000444 C7 86 000000C8 00000001         	MOV	DWORD [200+ESI],1
+   469 0000044E                                 L127:
+   470 0000044E 31 C0                           	XOR	EAX,EAX
+   471 00000450                                 L102:
+   472 00000450 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   473 00000453 5B                              	POP	EBX
+   474 00000454 5E                              	POP	ESI
+   475 00000455 5F                              	POP	EDI
+   476 00000456 5D                              	POP	EBP
+   477 00000457 C3                              	RET
+   478 00000458                                 L103:
+   479 00000458 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+   480 0000045B 31 FF                           	XOR	EDI,EDI
+   481 0000045D 0F B6 02                        	MOVZX	EAX,BYTE [EDX]
+   482 00000460 50                              	PUSH	EAX
+   483 00000461 6A 01                           	PUSH	1
+   484 00000463 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   485 00000466 56                              	PUSH	ESI
+   486 00000467 E8 FFFFFDDC                     	CALL	_IDEDriver_outp8
+   487 0000046C 6A 00                           	PUSH	0
+   488 0000046E 6A 02                           	PUSH	2
+   489 00000470 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   490 00000473 56                              	PUSH	ESI
+   491 00000474 E8 FFFFFDCF                     	CALL	_IDEDriver_outp8
+   492 00000479 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+   493 0000047C 83 C4 20                        	ADD	ESP,32
+   494 0000047F 0F B6 42 0E                     	MOVZX	EAX,BYTE [14+EDX]
+   495 00000483 50                              	PUSH	EAX
+   496 00000484 6A 04                           	PUSH	4
+   497 00000486 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   498 00000489 56                              	PUSH	ESI
+   499 0000048A E8 FFFFFDB9                     	CALL	_IDEDriver_outp8
+   500 0000048F 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+   501 00000492 0F B6 42 0F                     	MOVZX	EAX,BYTE [15+EDX]
+   502 00000496 50                              	PUSH	EAX
+   503 00000497 6A 05                           	PUSH	5
+   504 00000499 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   505 0000049C 56                              	PUSH	ESI
+   506 0000049D E8 FFFFFDA6                     	CALL	_IDEDriver_outp8
+   507 000004A2 83 C4 20                        	ADD	ESP,32
+   508 000004A5 68 000000A0                     	PUSH	160
+   509 000004AA 6A 07                           	PUSH	7
+   510 000004AC FF 75 0C                        	PUSH	DWORD [12+EBP]
+   511 000004AF 56                              	PUSH	ESI
+   512 000004B0 E8 FFFFFD93                     	CALL	_IDEDriver_outp8
+   513 000004B5 6A 01                           	PUSH	1
+   514 000004B7 56                              	PUSH	ESI
+   515 000004B8 E8 00000495                     	CALL	_IDEDriver_sleep
+   516 000004BD 83 C4 18                        	ADD	ESP,24
+   517 000004C0                                 L111:
+   518 000004C0 6A 08                           	PUSH	8
+   519 000004C2 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   520 000004C5 56                              	PUSH	ESI
+   521 000004C6 E8 FFFFFD9A                     	CALL	_IDEDriver_inp8
+   522 000004CB 83 C4 0C                        	ADD	ESP,12
+   523 000004CE 88 C3                           	MOV	BL,AL
+   524 000004D0 84 C0                           	TEST	AL,AL
+   525 000004D2 78 30                           	JS	L106
+   526 000004D4 83 E0 01                        	AND	EAX,1
+   527 000004D7 84 C0                           	TEST	AL,AL
+   528 000004D9 0F 85 000000D1                  	JNE	L124
+   529 000004DF 6A 02                           	PUSH	2
+   530 000004E1 83 E3 08                        	AND	EBX,8
+   531 000004E4 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   532 000004E7 56                              	PUSH	ESI
+   533 000004E8 E8 FFFFFD78                     	CALL	_IDEDriver_inp8
+   534 000004ED 83 C4 0C                        	ADD	ESP,12
+   535 000004F0 88 C2                           	MOV	DL,AL
+   536 000004F2 84 DB                           	TEST	BL,BL
+   537 000004F4 74 0E                           	JE	L106
+   538 000004F6 83 E0 02                        	AND	EAX,2
+   539 000004F9 84 C0                           	TEST	AL,AL
+   540 000004FB 75 07                           	JNE	L106
+   541 000004FD 83 E2 01                        	AND	EDX,1
+   542 00000500 84 D2                           	TEST	DL,DL
+   543 00000502 75 09                           	JNE	L105
+   544 00000504                                 L106:
+   545 00000504 47                              	INC	EDI
+   546 00000505 81 FF 0001869F                  	CMP	EDI,99999
+   547 0000050B 76 B3                           	JBE	L111
+   548 0000050D                                 L105:
+   549 0000050D 81 FF 000186A0                  	CMP	EDI,100000
+   550 00000513 74 69                           	JE	L128
+   551 00000515 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+   552 00000518 6A 06                           	PUSH	6
+   553 0000051A 83 C0 02                        	ADD	EAX,2
+   554 0000051D 31 FF                           	XOR	EDI,EDI
+   555 0000051F 50                              	PUSH	EAX
+   556 00000520 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   557 00000523 56                              	PUSH	ESI
+   558 00000524 E8 FFFFFD87                     	CALL	_IDEDriver_outp16_2
+   559 00000529 83 C4 10                        	ADD	ESP,16
+   560 0000052C                                 L120:
+   561 0000052C 56                              	PUSH	ESI
+   562 0000052D E8 00000222                     	CALL	_IDEDriver_protocolInterrupt
+   563 00000532 6A 08                           	PUSH	8
+   564 00000534 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   565 00000537 56                              	PUSH	ESI
+   566 00000538 E8 FFFFFD28                     	CALL	_IDEDriver_inp8
+   567 0000053D 83 C4 10                        	ADD	ESP,16
+   568 00000540 84 C0                           	TEST	AL,AL
+   569 00000542 78 11                           	JS	L115
+   570 00000544 83 E0 01                        	AND	EAX,1
+   571 00000547 84 C0                           	TEST	AL,AL
+   572 00000549 75 4C                           	JNE	L125
+   573 0000054B 8B 86 000000A8                  	MOV	EAX,DWORD [168+ESI]
+   574 00000551 85 C0                           	TEST	EAX,EAX
+   575 00000553 75 09                           	JNE	L114
+   576 00000555                                 L115:
+   577 00000555 47                              	INC	EDI
+   578 00000556 81 FF 0001869F                  	CMP	EDI,99999
+   579 0000055C 76 CE                           	JBE	L120
+   580 0000055E                                 L114:
+   581 0000055E 6A 07                           	PUSH	7
+   582 00000560 FF 75 0C                        	PUSH	DWORD [12+EBP]
+   583 00000563 56                              	PUSH	ESI
+   584 00000564 E8 FFFFFCFC                     	CALL	_IDEDriver_inp8
+   585 00000569 83 C4 0C                        	ADD	ESP,12
+   586 0000056C 81 FF 000186A0                  	CMP	EDI,100000
+   587 00000572 74 0A                           	JE	L128
+   588 00000574 B8 00000001                     	MOV	EAX,1
+   589 00000579 E9 FFFFFED2                     	JMP	L102
+   590 0000057E                                 L128:
+   591 0000057E C7 86 000000A4 00000000         	MOV	DWORD [164+ESI],0
+   592 00000588 C7 86 000000C8 00000003         	MOV	DWORD [200+ESI],3
+   593 00000592 E9 FFFFFEB7                     	JMP	L127
+   594 00000597                                 L125:
+   595 00000597 C7 86 000000A4 00000000         	MOV	DWORD [164+ESI],0
+   596 000005A1                                 L126:
+   597 000005A1 C7 86 000000C8 00000004         	MOV	DWORD [200+ESI],4
+   598 000005AB E9 FFFFFE9E                     	JMP	L127
+   599 000005B0                                 L124:
+   600 000005B0 C7 86 000000A4 00000000         	MOV	DWORD [164+ESI],0
+   601 000005BA 6A 01                           	PUSH	1
+   602 000005BC FF 75 0C                        	PUSH	DWORD [12+EBP]
+   603 000005BF 56                              	PUSH	ESI
+   604 000005C0 E8 FFFFFCA0                     	CALL	_IDEDriver_inp8
+   605 000005C5 EB DA                           	JMP	L126
+   606 000005C7                                 	GLOBAL	_IDEDriver_protocolPioDataIn
+   607 000005C7                                 _IDEDriver_protocolPioDataIn:
+   608 000005C7 55                              	PUSH	EBP
+   609 000005C8 89 E5                           	MOV	EBP,ESP
+   610 000005CA 57                              	PUSH	EDI
+   611 000005CB 56                              	PUSH	ESI
+   612 000005CC 53                              	PUSH	EBX
+   613 000005CD 83 EC 0C                        	SUB	ESP,12
+   614 000005D0 8B 45 14                        	MOV	EAX,DWORD [20+EBP]
+   615 000005D3 8B 7D 10                        	MOV	EDI,DWORD [16+EBP]
+   616 000005D6 66 89 45 F2                     	MOV	WORD [-14+EBP],AX
+   617 000005DA 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   618 000005DD 8B 45 18                        	MOV	EAX,DWORD [24+EBP]
+   619 000005E0 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+   620 000005E3 89 45 EC                        	MOV	DWORD [-20+EBP],EAX
+   621 000005E6 0F B6 47 05                     	MOVZX	EAX,BYTE [5+EDI]
+   622 000005EA 50                              	PUSH	EAX
+   623 000005EB 56                              	PUSH	ESI
+   624 000005EC 53                              	PUSH	EBX
+   625 000005ED E8 0000062F                     	CALL	_IDEDriver_selectDevice_2
+   626 000005F2 83 C4 0C                        	ADD	ESP,12
+   627 000005F5 84 C0                           	TEST	AL,AL
+   628 000005F7 75 14                           	JNE	L130
+   629 000005F9 C7 83 000000C8 00000001         	MOV	DWORD [200+EBX],1
+   630 00000603                                 L146:
+   631 00000603 31 C0                           	XOR	EAX,EAX
+   632 00000605                                 L129:
+   633 00000605 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   634 00000608 5B                              	POP	EBX
+   635 00000609 5E                              	POP	ESI
+   636 0000060A 5F                              	POP	EDI
+   637 0000060B 5D                              	POP	EBP
+   638 0000060C C3                              	RET
+   639 0000060D                                 L130:
+   640 0000060D 6A 02                           	PUSH	2
+   641 0000060F 6A 08                           	PUSH	8
+   642 00000611 56                              	PUSH	ESI
+   643 00000612 53                              	PUSH	EBX
+   644 00000613 E8 FFFFFC30                     	CALL	_IDEDriver_outp8
+   645 00000618 0F B6 07                        	MOVZX	EAX,BYTE [EDI]
+   646 0000061B 50                              	PUSH	EAX
+   647 0000061C 6A 01                           	PUSH	1
+   648 0000061E 56                              	PUSH	ESI
+   649 0000061F 53                              	PUSH	EBX
+   650 00000620 E8 FFFFFC23                     	CALL	_IDEDriver_outp8
+   651 00000625 83 C4 20                        	ADD	ESP,32
+   652 00000628 0F B6 47 01                     	MOVZX	EAX,BYTE [1+EDI]
+   653 0000062C 50                              	PUSH	EAX
+   654 0000062D 6A 02                           	PUSH	2
+   655 0000062F 56                              	PUSH	ESI
+   656 00000630 53                              	PUSH	EBX
+   657 00000631 E8 FFFFFC12                     	CALL	_IDEDriver_outp8
+   658 00000636 0F B6 47 02                     	MOVZX	EAX,BYTE [2+EDI]
+   659 0000063A 50                              	PUSH	EAX
+   660 0000063B 6A 03                           	PUSH	3
+   661 0000063D 56                              	PUSH	ESI
+   662 0000063E 53                              	PUSH	EBX
+   663 0000063F E8 FFFFFC04                     	CALL	_IDEDriver_outp8
+   664 00000644 83 C4 20                        	ADD	ESP,32
+   665 00000647 0F B6 47 03                     	MOVZX	EAX,BYTE [3+EDI]
+   666 0000064B 50                              	PUSH	EAX
+   667 0000064C 6A 04                           	PUSH	4
+   668 0000064E 56                              	PUSH	ESI
+   669 0000064F 53                              	PUSH	EBX
+   670 00000650 E8 FFFFFBF3                     	CALL	_IDEDriver_outp8
+   671 00000655 0F B6 47 04                     	MOVZX	EAX,BYTE [4+EDI]
+   672 00000659 50                              	PUSH	EAX
+   673 0000065A 6A 05                           	PUSH	5
+   674 0000065C 56                              	PUSH	ESI
+   675 0000065D 53                              	PUSH	EBX
+   676 0000065E E8 FFFFFBE5                     	CALL	_IDEDriver_outp8
+   677 00000663 83 C4 20                        	ADD	ESP,32
+   678 00000666 80 7F 07 00                     	CMP	BYTE [7+EDI],0
+   679 0000066A 74 11                           	JE	L131
+   680 0000066C 56                              	PUSH	ESI
+   681 0000066D 53                              	PUSH	EBX
+   682 0000066E E8 FFFFFD49                     	CALL	_IDEDriver_waitDrdySet
+   683 00000673 5A                              	POP	EDX
+   684 00000674 59                              	POP	ECX
+   685 00000675 84 C0                           	TEST	AL,AL
+   686 00000677 0F 84 000000B9                  	JE	L145
+   687 0000067D                                 L131:
+   688 0000067D 0F B6 47 06                     	MOVZX	EAX,BYTE [6+EDI]
+   689 00000681 50                              	PUSH	EAX
+   690 00000682 31 FF                           	XOR	EDI,EDI
+   691 00000684 6A 07                           	PUSH	7
+   692 00000686 56                              	PUSH	ESI
+   693 00000687 53                              	PUSH	EBX
+   694 00000688 E8 FFFFFBBB                     	CALL	_IDEDriver_outp8
+   695 0000068D 6A 01                           	PUSH	1
+   696 0000068F 53                              	PUSH	EBX
+   697 00000690 E8 000002BD                     	CALL	_IDEDriver_sleep
+   698 00000695 6A 08                           	PUSH	8
+   699 00000697 56                              	PUSH	ESI
+   700 00000698 53                              	PUSH	EBX
+   701 00000699 E8 FFFFFBC7                     	CALL	_IDEDriver_inp8
+   702 0000069E 83 C4 24                        	ADD	ESP,36
+   703 000006A1 0F B7 45 F2                     	MOVZX	EAX,WORD [-14+EBP]
+   704 000006A5 89 45 E8                        	MOV	DWORD [-24+EBP],EAX
+   705 000006A8 39 C7                           	CMP	EDI,EAX
+   706 000006AA 7D 4C                           	JGE	L142
+   707 000006AC                                 L139:
+   708 000006AC 56                              	PUSH	ESI
+   709 000006AD 53                              	PUSH	EBX
+   710 000006AE E8 FFFFFCCF                     	CALL	_IDEDriver_waitBusyClear
+   711 000006B3 5A                              	POP	EDX
+   712 000006B4 59                              	POP	ECX
+   713 000006B5 84 C0                           	TEST	AL,AL
+   714 000006B7 0F 84 00000088                  	JE	L143
+   715 000006BD 6A 07                           	PUSH	7
+   716 000006BF 56                              	PUSH	ESI
+   717 000006C0 53                              	PUSH	EBX
+   718 000006C1 E8 FFFFFB9F                     	CALL	_IDEDriver_inp8
+   719 000006C6 83 C4 0C                        	ADD	ESP,12
+   720 000006C9 88 C2                           	MOV	DL,AL
+   721 000006CB 83 E0 01                        	AND	EAX,1
+   722 000006CE 84 C0                           	TEST	AL,AL
+   723 000006D0 75 55                           	JNE	L144
+   724 000006D2 83 E2 08                        	AND	EDX,8
+   725 000006D5 84 D2                           	TEST	DL,DL
+   726 000006D7 74 5D                           	JE	L145
+   727 000006D9 68 00000200                     	PUSH	512
+   728 000006DE 47                              	INC	EDI
+   729 000006DF FF 75 EC                        	PUSH	DWORD [-20+EBP]
+   730 000006E2 56                              	PUSH	ESI
+   731 000006E3 53                              	PUSH	EBX
+   732 000006E4 E8 FFFFFBFC                     	CALL	_IDEDriver_inp16_2
+   733 000006E9 83 C4 10                        	ADD	ESP,16
+   734 000006EC 81 45 EC 00000200               	ADD	DWORD [-20+EBP],512
+   735 000006F3 3B 7D E8                        	CMP	EDI,DWORD [-24+EBP]
+   736 000006F6 7C B4                           	JL	L139
+   737 000006F8                                 L142:
+   738 000006F8 6A 08                           	PUSH	8
+   739 000006FA 56                              	PUSH	ESI
+   740 000006FB 53                              	PUSH	EBX
+   741 000006FC E8 FFFFFB64                     	CALL	_IDEDriver_inp8
+   742 00000701 6A 07                           	PUSH	7
+   743 00000703 56                              	PUSH	ESI
+   744 00000704 53                              	PUSH	EBX
+   745 00000705 E8 FFFFFB5B                     	CALL	_IDEDriver_inp8
+   746 0000070A 83 C4 18                        	ADD	ESP,24
+   747 0000070D 83 E0 01                        	AND	EAX,1
+   748 00000710 84 C0                           	TEST	AL,AL
+   749 00000712 75 0A                           	JNE	L147
+   750 00000714 B8 00000001                     	MOV	EAX,1
+   751 00000719 E9 FFFFFEE7                     	JMP	L129
+   752 0000071E                                 L147:
+   753 0000071E 6A 01                           	PUSH	1
+   754 00000720 56                              	PUSH	ESI
+   755 00000721 53                              	PUSH	EBX
+   756 00000722 E8 FFFFFB3E                     	CALL	_IDEDriver_inp8
+   757 00000727                                 L144:
+   758 00000727 C7 83 000000C8 00000004         	MOV	DWORD [200+EBX],4
+   759 00000731 E9 FFFFFECD                     	JMP	L146
+   760 00000736                                 L145:
+   761 00000736 C7 83 000000C8 00000002         	MOV	DWORD [200+EBX],2
+   762 00000740 E9 FFFFFEBE                     	JMP	L146
+   763 00000745                                 L143:
+   764 00000745 C7 83 000000C8 00000003         	MOV	DWORD [200+EBX],3
+   765 0000074F E9 FFFFFEAF                     	JMP	L146
+   766 00000754                                 	GLOBAL	_IDEDriver_protocolInterrupt
+   767 00000754                                 _IDEDriver_protocolInterrupt:
+   768 00000754 55                              	PUSH	EBP
+   769 00000755 89 E5                           	MOV	EBP,ESP
+   770 00000757 57                              	PUSH	EDI
+   771 00000758 56                              	PUSH	ESI
+   772 00000759 53                              	PUSH	EBX
+   773 0000075A 53                              	PUSH	EBX
+   774 0000075B 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+   775 0000075E                                 L149:
+   776 0000075E 6A 07                           	PUSH	7
+   777 00000760 FF B3 000000A0                  	PUSH	DWORD [160+EBX]
+   778 00000766 53                              	PUSH	EBX
+   779 00000767 E8 FFFFFAF9                     	CALL	_IDEDriver_inp8
+   780 0000076C 6A 02                           	PUSH	2
+   781 0000076E FF B3 000000A0                  	PUSH	DWORD [160+EBX]
+   782 00000774 53                              	PUSH	EBX
+   783 00000775 88 45 F3                        	MOV	BYTE [-13+EBP],AL
+   784 00000778 E8 FFFFFAE8                     	CALL	_IDEDriver_inp8
+   785 0000077D 83 C4 18                        	ADD	ESP,24
+   786 00000780 89 C7                           	MOV	EDI,EAX
+   787 00000782 83 E0 03                        	AND	EAX,3
+   788 00000785 3C 02                           	CMP	AL,2
+   789 00000787 74 2E                           	JE	L157
+   790 00000789                                 L152:
+   791 00000789 89 F8                           	MOV	EAX,EDI
+   792 0000078B 83 E0 02                        	AND	EAX,2
+   793 0000078E 84 C0                           	TEST	AL,AL
+   794 00000790 74 CC                           	JE	L149
+   795 00000792 83 E7 01                        	AND	EDI,1
+   796 00000795 89 F8                           	MOV	EAX,EDI
+   797 00000797 84 C0                           	TEST	AL,AL
+   798 00000799 74 C3                           	JE	L149
+   799 0000079B 80 65 F3 08                     	AND	BYTE [-13+EBP],8
+   800 0000079F 80 7D F3 00                     	CMP	BYTE [-13+EBP],0
+   801 000007A3 75 B9                           	JNE	L149
+   802 000007A5 C7 83 000000A8 00000001         	MOV	DWORD [168+EBX],1
+   803 000007AF 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   804 000007B2 5B                              	POP	EBX
+   805 000007B3 5E                              	POP	ESI
+   806 000007B4 5F                              	POP	EDI
+   807 000007B5 5D                              	POP	EBP
+   808 000007B6 C3                              	RET
+   809 000007B7                                 L157:
+   810 000007B7 8A 45 F3                        	MOV	AL,BYTE [-13+EBP]
+   811 000007BA 83 E0 08                        	AND	EAX,8
+   812 000007BD 84 C0                           	TEST	AL,AL
+   813 000007BF 74 C8                           	JE	L152
+   814 000007C1 6A 05                           	PUSH	5
+   815 000007C3 FF B3 000000A0                  	PUSH	DWORD [160+EBX]
+   816 000007C9 53                              	PUSH	EBX
+   817 000007CA E8 FFFFFA96                     	CALL	_IDEDriver_inp8
+   818 000007CF 6A 04                           	PUSH	4
+   819 000007D1 FF B3 000000A0                  	PUSH	DWORD [160+EBX]
+   820 000007D7 53                              	PUSH	EBX
+   821 000007D8 0F B6 F0                        	MOVZX	ESI,AL
+   822 000007DB C1 E6 08                        	SAL	ESI,8
+   823 000007DE E8 FFFFFA82                     	CALL	_IDEDriver_inp8
+   824 000007E3 66 0F B6 C0                     	MOVZX	AX,AL
+   825 000007E7 09 F0                           	OR	EAX,ESI
+   826 000007E9 83 C4 18                        	ADD	ESP,24
+   827 000007EC 0F B7 F0                        	MOVZX	ESI,AX
+   828 000007EF 8B 83 000000AC                  	MOV	EAX,DWORD [172+EBX]
+   829 000007F5 01 F0                           	ADD	EAX,ESI
+   830 000007F7 89 83 000000AC                  	MOV	DWORD [172+EBX],EAX
+   831 000007FD 8B 93 000000AC                  	MOV	EDX,DWORD [172+EBX]
+   832 00000803 8B 83 000000B0                  	MOV	EAX,DWORD [176+EBX]
+   833 00000809 39 C2                           	CMP	EDX,EAX
+   834 0000080B 76 17                           	JBE	L153
+   835 0000080D 56                              	PUSH	ESI
+   836 0000080E 6A 00                           	PUSH	0
+   837 00000810 FF B3 000000A0                  	PUSH	DWORD [160+EBX]
+   838 00000816 53                              	PUSH	EBX
+   839 00000817 E8 FFFFFAC9                     	CALL	_IDEDriver_inp16_2
+   840 0000081C                                 L156:
+   841 0000081C 83 C4 10                        	ADD	ESP,16
+   842 0000081F E9 FFFFFF65                     	JMP	L152
+   843 00000824                                 L153:
+   844 00000824 56                              	PUSH	ESI
+   845 00000825 FF B3 000000A4                  	PUSH	DWORD [164+EBX]
+   846 0000082B FF B3 000000A0                  	PUSH	DWORD [160+EBX]
+   847 00000831 53                              	PUSH	EBX
+   848 00000832 E8 FFFFFAAE                     	CALL	_IDEDriver_inp16_2
+   849 00000837 01 B3 000000A4                  	ADD	DWORD [164+EBX],ESI
+   850 0000083D EB DD                           	JMP	L156
+   851 0000083F                                 	GLOBAL	_IDEDriver_commandRead10
+   852 0000083F                                 _IDEDriver_commandRead10:
+   853 0000083F 55                              	PUSH	EBP
+   854 00000840 31 C0                           	XOR	EAX,EAX
+   855 00000842 89 E5                           	MOV	EBP,ESP
+   856 00000844 B9 00000005                     	MOV	ECX,5
+   857 00000849 57                              	PUSH	EDI
+   858 0000084A 56                              	PUSH	ESI
+   859 0000084B 8D 7D D4                        	LEA	EDI,DWORD [-44+EBP]
+   860 0000084E 53                              	PUSH	EBX
+   861 0000084F FC                              	CLD
+   862 00000850 83 EC 28                        	SUB	ESP,40
+   863 00000853 8B 5D 10                        	MOV	EBX,DWORD [16+EBP]
+   864 00000856 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   865 00000859 F3                              	REP
+   866 0000085A AB                              	STOSD
+   867 0000085B 8B 45 18                        	MOV	EAX,DWORD [24+EBP]
+   868 0000085E BF 00000800                     	MOV	EDI,2048
+   869 00000863 05 000007FF                     	ADD	EAX,2047
+   870 00000868 8D 4D D4                        	LEA	ECX,DWORD [-44+EBP]
+   871 0000086B 99                              	CDQ
+   872 0000086C 89 45 D0                        	MOV	DWORD [-48+EBP],EAX
+   873 0000086F F7 FF                           	IDIV	EDI
+   874 00000871 C6 45 D4 00                     	MOV	BYTE [-44+EBP],0
+   875 00000875 89 45 CC                        	MOV	DWORD [-52+EBP],EAX
+   876 00000878 8B 46 4C                        	MOV	EAX,DWORD [76+ESI]
+   877 0000087B 8A 40 08                        	MOV	AL,BYTE [8+EAX]
+   878 0000087E 88 5D DB                        	MOV	BYTE [-37+EBP],BL
+   879 00000881 88 45 D5                        	MOV	BYTE [-43+EBP],AL
+   880 00000884 89 D8                           	MOV	EAX,EBX
+   881 00000886 C1 E8 18                        	SHR	EAX,24
+   882 00000889 88 45 D8                        	MOV	BYTE [-40+EBP],AL
+   883 0000088C 89 D8                           	MOV	EAX,EBX
+   884 0000088E C1 E8 10                        	SHR	EAX,16
+   885 00000891 88 45 D9                        	MOV	BYTE [-39+EBP],AL
+   886 00000894 89 D8                           	MOV	EAX,EBX
+   887 00000896 C1 E8 08                        	SHR	EAX,8
+   888 00000899 88 45 DA                        	MOV	BYTE [-38+EBP],AL
+   889 0000089C 8B 45 CC                        	MOV	EAX,DWORD [-52+EBP]
+   890 0000089F C1 F8 08                        	SAR	EAX,8
+   891 000008A2 88 45 DD                        	MOV	BYTE [-35+EBP],AL
+   892 000008A5 8A 45 CC                        	MOV	AL,BYTE [-52+EBP]
+   893 000008A8 C1 65 CC 0B                     	SAL	DWORD [-52+EBP],11
+   894 000008AC 88 45 DE                        	MOV	BYTE [-34+EBP],AL
+   895 000008AF 8B 45 CC                        	MOV	EAX,DWORD [-52+EBP]
+   896 000008B2 66 89 45 E2                     	MOV	WORD [-30+EBP],AX
+   897 000008B6 8B 45 14                        	MOV	EAX,DWORD [20+EBP]
+   898 000008B9 89 45 E4                        	MOV	DWORD [-28+EBP],EAX
+   899 000008BC 8B 45 08                        	MOV	EAX,DWORD [8+EBP]
+   900 000008BF C6 45 D6 28                     	MOV	BYTE [-42+EBP],40
+   901 000008C3 C7 80 000000AC 00000000         	MOV	DWORD [172+EAX],0
+   902 000008CD 51                              	PUSH	ECX
+   903 000008CE 56                              	PUSH	ESI
+   904 000008CF 50                              	PUSH	EAX
+   905 000008D0 E8 FFFFFB24                     	CALL	_IDEDriver_protocolPacket
+   906 000008D5 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+   907 000008D8 5B                              	POP	EBX
+   908 000008D9 5E                              	POP	ESI
+   909 000008DA 5F                              	POP	EDI
+   910 000008DB 0F B6 C0                        	MOVZX	EAX,AL
+   911 000008DE 5D                              	POP	EBP
+   912 000008DF C3                              	RET
+   913 000008E0                                 	GLOBAL	_IDEDriver_commandIdentify
+   914 000008E0                                 _IDEDriver_commandIdentify:
+   915 000008E0 55                              	PUSH	EBP
+   916 000008E1 89 E5                           	MOV	EBP,ESP
+   917 000008E3 53                              	PUSH	EBX
+   918 000008E4 50                              	PUSH	EAX
+   919 000008E5 50                              	PUSH	EAX
+   920 000008E6 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+   921 000008E9 8B 55 0C                        	MOV	EDX,DWORD [12+EBP]
+   922 000008EC C7 45 F8 00000000               	MOV	DWORD [-8+EBP],0
+   923 000008F3 88 45 F9                        	MOV	BYTE [-7+EBP],AL
+   924 000008F6 8B 5D 14                        	MOV	EBX,DWORD [20+EBP]
+   925 000008F9 C1 E0 04                        	SAL	EAX,4
+   926 000008FC C7 45 F4 00000000               	MOV	DWORD [-12+EBP],0
+   927 00000903 83 7C 10 2C 04                  	CMP	DWORD [44+EAX+EDX*1],4
+   928 00000908 74 3E                           	JE	L170
+   929 0000090A C6 45 FB 00                     	MOV	BYTE [-5+EBP],0
+   930 0000090E C6 45 FA A1                     	MOV	BYTE [-6+EBP],-95
+   931 00000912                                 L161:
+   932 00000912 53                              	PUSH	EBX
+   933 00000913 8D 45 F4                        	LEA	EAX,DWORD [-12+EBP]
+   934 00000916 6A 01                           	PUSH	1
+   935 00000918 50                              	PUSH	EAX
+   936 00000919 52                              	PUSH	EDX
+   937 0000091A FF 75 08                        	PUSH	DWORD [8+EBP]
+   938 0000091D E8 FFFFFCA5                     	CALL	_IDEDriver_protocolPioDataIn
+   939 00000922 31 D2                           	XOR	EDX,EDX
+   940 00000924 83 C4 14                        	ADD	ESP,20
+   941 00000927 84 C0                           	TEST	AL,AL
+   942 00000929 74 16                           	JE	L159
+   943 0000092B 89 D8                           	MOV	EAX,EBX
+   944 0000092D BA 000000FF                     	MOV	EDX,255
+   945 00000932                                 L167:
+   946 00000932 66 C1 00 08                     	ROL	WORD [EAX],8
+   947 00000936 83 C0 02                        	ADD	EAX,2
+   948 00000939 4A                              	DEC	EDX
+   949 0000093A 79 F6                           	JNS	L167
+   950 0000093C BA 00000001                     	MOV	EDX,1
+   951 00000941                                 L159:
+   952 00000941 89 D0                           	MOV	EAX,EDX
+   953 00000943 8B 5D FC                        	MOV	EBX,DWORD [-4+EBP]
+   954 00000946 C9                              	LEAVE
+   955 00000947 C3                              	RET
+   956 00000948                                 L170:
+   957 00000948 C6 45 FB 01                     	MOV	BYTE [-5+EBP],1
+   958 0000094C C6 45 FA EC                     	MOV	BYTE [-6+EBP],-20
+   959 00000950 EB C0                           	JMP	L161
+   960 00000952                                 	GLOBAL	_IDEDriver_sleep
+   961 00000952                                 _IDEDriver_sleep:
+   962 00000952 55                              	PUSH	EBP
+   963 00000953 89 E5                           	MOV	EBP,ESP
+   964 00000955 8B 55 0C                        	MOV	EDX,DWORD [12+EBP]
+   965 00000958 89 D0                           	MOV	EAX,EDX
+   966 0000095A 4A                              	DEC	EDX
+   967 0000095B 85 C0                           	TEST	EAX,EAX
+   968 0000095D 74 09                           	JE	L177
+   969 0000095F                                 L175:
+   970 0000095F E6 80                           	OUT	0x80,AL
+   971 00000961 89 D0                           	MOV	EAX,EDX
+   972 00000963 4A                              	DEC	EDX
+   973 00000964 85 C0                           	TEST	EAX,EAX
+   974 00000966 75 F7                           	JNE	L175
+   975 00000968                                 L177:
+   976 00000968 5D                              	POP	EBP
+   977 00000969 C3                              	RET
+   978 0000096A                                 	GLOBAL	_IDEDriver_initialize
+   979 0000096A                                 _IDEDriver_initialize:
+   980 0000096A 55                              	PUSH	EBP
+   981 0000096B 89 E5                           	MOV	EBP,ESP
+   982 0000096D 56                              	PUSH	ESI
+   983 0000096E 53                              	PUSH	EBX
+   984 0000096F 6A 06                           	PUSH	6
+   985 00000971 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+   986 00000974 6A 08                           	PUSH	8
+   987 00000976 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+   988 00000979 56                              	PUSH	ESI
+   989 0000097A 53                              	PUSH	EBX
+   990 0000097B E8 FFFFF8C8                     	CALL	_IDEDriver_outp8
+   991 00000980 6A 05                           	PUSH	5
+   992 00000982 53                              	PUSH	EBX
+   993 00000983 E8 FFFFFFCA                     	CALL	_IDEDriver_sleep
+   994 00000988 6A 02                           	PUSH	2
+   995 0000098A 6A 08                           	PUSH	8
+   996 0000098C 56                              	PUSH	ESI
+   997 0000098D 53                              	PUSH	EBX
+   998 0000098E E8 FFFFF8B5                     	CALL	_IDEDriver_outp8
+   999 00000993 83 C4 28                        	ADD	ESP,40
+  1000 00000996 6A 05                           	PUSH	5
+  1001 00000998 53                              	PUSH	EBX
+  1002 00000999 E8 FFFFFFB4                     	CALL	_IDEDriver_sleep
+  1003 0000099E 6A 00                           	PUSH	0
+  1004 000009A0 56                              	PUSH	ESI
+  1005 000009A1 53                              	PUSH	EBX
+  1006 000009A2 E8 00000025                     	CALL	_IDEDriver_setDeviceTypeFirst
+  1007 000009A7 6A 00                           	PUSH	0
+  1008 000009A9 56                              	PUSH	ESI
+  1009 000009AA 53                              	PUSH	EBX
+  1010 000009AB E8 00000134                     	CALL	_IDEDriver_setDeviceTypeSecond
+  1011 000009B0 83 C4 20                        	ADD	ESP,32
+  1012 000009B3 6A 01                           	PUSH	1
+  1013 000009B5 56                              	PUSH	ESI
+  1014 000009B6 53                              	PUSH	EBX
+  1015 000009B7 E8 00000010                     	CALL	_IDEDriver_setDeviceTypeFirst
+  1016 000009BC 6A 01                           	PUSH	1
+  1017 000009BE 56                              	PUSH	ESI
+  1018 000009BF 53                              	PUSH	EBX
+  1019 000009C0 E8 0000011F                     	CALL	_IDEDriver_setDeviceTypeSecond
+  1020 000009C5 8D 65 F8                        	LEA	ESP,DWORD [-8+EBP]
+  1021 000009C8 5B                              	POP	EBX
+  1022 000009C9 5E                              	POP	ESI
+  1023 000009CA 5D                              	POP	EBP
+  1024 000009CB C3                              	RET
+  1025 000009CC                                 	GLOBAL	_IDEDriver_setDeviceTypeFirst
+  1026 000009CC                                 _IDEDriver_setDeviceTypeFirst:
+  1027 000009CC 55                              	PUSH	EBP
+  1028 000009CD 89 E5                           	MOV	EBP,ESP
+  1029 000009CF 57                              	PUSH	EDI
+  1030 000009D0 56                              	PUSH	ESI
+  1031 000009D1 53                              	PUSH	EBX
+  1032 000009D2 53                              	PUSH	EBX
+  1033 000009D3 53                              	PUSH	EBX
+  1034 000009D4 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+  1035 000009D7 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+  1036 000009DA C1 E0 04                        	SAL	EAX,4
+  1037 000009DD 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+  1038 000009E0 C6 45 EF FF                     	MOV	BYTE [-17+EBP],-1
+  1039 000009E4 8D 7C 30 2C                     	LEA	EDI,DWORD [44+EAX+ESI*1]
+  1040 000009E8 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+  1041 000009EB C6 45 EE FF                     	MOV	BYTE [-18+EBP],-1
+  1042 000009EF 89 47 08                        	MOV	DWORD [8+EDI],EAX
+  1043 000009F2 C7 45 F0 00000000               	MOV	DWORD [-16+EBP],0
+  1044 000009F9                                 L190:
+  1045 000009F9 FF 75 10                        	PUSH	DWORD [16+EBP]
+  1046 000009FC 53                              	PUSH	EBX
+  1047 000009FD E8 000002C7                     	CALL	_IDEDriver_deviceValue
+  1048 00000A02 5A                              	POP	EDX
+  1049 00000A03 59                              	POP	ECX
+  1050 00000A04 0F B6 C0                        	MOVZX	EAX,AL
+  1051 00000A07 50                              	PUSH	EAX
+  1052 00000A08 6A 06                           	PUSH	6
+  1053 00000A0A 56                              	PUSH	ESI
+  1054 00000A0B 53                              	PUSH	EBX
+  1055 00000A0C E8 FFFFF837                     	CALL	_IDEDriver_outp8
+  1056 00000A11 6A 0A                           	PUSH	10
+  1057 00000A13 53                              	PUSH	EBX
+  1058 00000A14 E8 FFFFFF39                     	CALL	_IDEDriver_sleep
+  1059 00000A19 6A 07                           	PUSH	7
+  1060 00000A1B 56                              	PUSH	ESI
+  1061 00000A1C 53                              	PUSH	EBX
+  1062 00000A1D E8 FFFFF843                     	CALL	_IDEDriver_inp8
+  1063 00000A22 83 C4 24                        	ADD	ESP,36
+  1064 00000A25 FE C0                           	INC	AL
+  1065 00000A27 74 5A                           	JE	L181
+  1066 00000A29 56                              	PUSH	ESI
+  1067 00000A2A 53                              	PUSH	EBX
+  1068 00000A2B E8 FFFFF952                     	CALL	_IDEDriver_waitBusyClear
+  1069 00000A30 5A                              	POP	EDX
+  1070 00000A31 59                              	POP	ECX
+  1071 00000A32 84 C0                           	TEST	AL,AL
+  1072 00000A34 74 4D                           	JE	L181
+  1073 00000A36 6A 01                           	PUSH	1
+  1074 00000A38 56                              	PUSH	ESI
+  1075 00000A39 53                              	PUSH	EBX
+  1076 00000A3A E8 FFFFF826                     	CALL	_IDEDriver_inp8
+  1077 00000A3F 83 C4 0C                        	ADD	ESP,12
+  1078 00000A42 88 C2                           	MOV	DL,AL
+  1079 00000A44 83 7D 10 00                     	CMP	DWORD [16+EBP],0
+  1080 00000A48 75 0B                           	JNE	L186
+  1081 00000A4A 83 E0 7F                        	AND	EAX,127
+  1082 00000A4D FE C8                           	DEC	AL
+  1083 00000A4F 0F 85 00000087                  	JNE	L198
+  1084 00000A55                                 L186:
+  1085 00000A55 83 7D 10 01                     	CMP	DWORD [16+EBP],1
+  1086 00000A59 74 79                           	JE	L200
+  1087 00000A5B                                 L187:
+  1088 00000A5B 6A 06                           	PUSH	6
+  1089 00000A5D 56                              	PUSH	ESI
+  1090 00000A5E 53                              	PUSH	EBX
+  1091 00000A5F E8 FFFFF801                     	CALL	_IDEDriver_inp8
+  1092 00000A64 83 C4 0C                        	ADD	ESP,12
+  1093 00000A67 8B 55 10                        	MOV	EDX,DWORD [16+EBP]
+  1094 00000A6A C1 E2 04                        	SAL	EDX,4
+  1095 00000A6D 0F B6 C0                        	MOVZX	EAX,AL
+  1096 00000A70 21 D0                           	AND	EAX,EDX
+  1097 00000A72 39 D0                           	CMP	EAX,EDX
+  1098 00000A74 74 41                           	JE	L199
+  1099 00000A76 FF 45 F0                        	INC	DWORD [-16+EBP]
+  1100 00000A79 83 7D F0 01                     	CMP	DWORD [-16+EBP],1
+  1101 00000A7D 0F 86 FFFFFF76                  	JBE	L190
+  1102 00000A83                                 L181:
+  1103 00000A83 0F B6 45 EE                     	MOVZX	EAX,BYTE [-18+EBP]
+  1104 00000A87 0F B6 55 EF                     	MOVZX	EDX,BYTE [-17+EBP]
+  1105 00000A8B C1 E0 08                        	SAL	EAX,8
+  1106 00000A8E 09 D0                           	OR	EAX,EDX
+  1107 00000A90 74 1D                           	JE	L193
+  1108 00000A92 3D 0000EB14                     	CMP	EAX,60180
+  1109 00000A97 74 0E                           	JE	L201
+  1110 00000A99 C7 07 00000003                  	MOV	DWORD [EDI],3
+  1111 00000A9F                                 L179:
+  1112 00000A9F 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+  1113 00000AA2 5B                              	POP	EBX
+  1114 00000AA3 5E                              	POP	ESI
+  1115 00000AA4 5F                              	POP	EDI
+  1116 00000AA5 5D                              	POP	EBP
+  1117 00000AA6 C3                              	RET
+  1118 00000AA7                                 L201:
+  1119 00000AA7 C7 07 00000005                  	MOV	DWORD [EDI],5
+  1120 00000AAD EB F0                           	JMP	L179
+  1121 00000AAF                                 L193:
+  1122 00000AAF C7 07 00000004                  	MOV	DWORD [EDI],4
+  1123 00000AB5 EB E8                           	JMP	L179
+  1124 00000AB7                                 L199:
+  1125 00000AB7 6A 04                           	PUSH	4
+  1126 00000AB9 56                              	PUSH	ESI
+  1127 00000ABA 53                              	PUSH	EBX
+  1128 00000ABB E8 FFFFF7A5                     	CALL	_IDEDriver_inp8
+  1129 00000AC0 6A 05                           	PUSH	5
+  1130 00000AC2 56                              	PUSH	ESI
+  1131 00000AC3 53                              	PUSH	EBX
+  1132 00000AC4 88 45 EF                        	MOV	BYTE [-17+EBP],AL
+  1133 00000AC7 E8 FFFFF799                     	CALL	_IDEDriver_inp8
+  1134 00000ACC 83 C4 18                        	ADD	ESP,24
+  1135 00000ACF 88 45 EE                        	MOV	BYTE [-18+EBP],AL
+  1136 00000AD2 EB AF                           	JMP	L181
+  1137 00000AD4                                 L200:
+  1138 00000AD4 FE CA                           	DEC	DL
+  1139 00000AD6 0F 84 FFFFFF7F                  	JE	L187
+  1140 00000ADC                                 L198:
+  1141 00000ADC C7 07 00000002                  	MOV	DWORD [EDI],2
+  1142 00000AE2 EB BB                           	JMP	L179
+  1143 00000AE4                                 	GLOBAL	_IDEDriver_setDeviceTypeSecond
+  1144 00000AE4                                 _IDEDriver_setDeviceTypeSecond:
+  1145 00000AE4 55                              	PUSH	EBP
+  1146 00000AE5 89 E5                           	MOV	EBP,ESP
+  1147 00000AE7 57                              	PUSH	EDI
+  1148 00000AE8 56                              	PUSH	ESI
+  1149 00000AE9 53                              	PUSH	EBX
+  1150 00000AEA 81 EC 00000204                  	SUB	ESP,516
+  1151 00000AF0 8B 45 10                        	MOV	EAX,DWORD [16+EBP]
+  1152 00000AF3 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+  1153 00000AF6 C1 E0 04                        	SAL	EAX,4
+  1154 00000AF9 FF 75 0C                        	PUSH	DWORD [12+EBP]
+  1155 00000AFC 01 C6                           	ADD	ESI,EAX
+  1156 00000AFE FF 75 08                        	PUSH	DWORD [8+EBP]
+  1157 00000B01 8D 5E 2C                        	LEA	EBX,DWORD [44+ESI]
+  1158 00000B04 E8 FFFFF879                     	CALL	_IDEDriver_waitBusyClear
+  1159 00000B09 5F                              	POP	EDI
+  1160 00000B0A 84 C0                           	TEST	AL,AL
+  1161 00000B0C 5A                              	POP	EDX
+  1162 00000B0D C6 85 FFFFFDF3 00               	MOV	BYTE [-525+EBP],0
+  1163 00000B14 75 0F                           	JNE	L214
+  1164 00000B16 C7 46 2C 00000003               	MOV	DWORD [44+ESI],3
+  1165 00000B1D                                 L202:
+  1166 00000B1D 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+  1167 00000B20 5B                              	POP	EBX
+  1168 00000B21 5E                              	POP	ESI
+  1169 00000B22 5F                              	POP	EDI
+  1170 00000B23 5D                              	POP	EBP
+  1171 00000B24 C3                              	RET
+  1172 00000B25                                 L214:
+  1173 00000B25 8D 85 FFFFFDF4                  	LEA	EAX,DWORD [-524+EBP]
+  1174 00000B2B 50                              	PUSH	EAX
+  1175 00000B2C FF 75 10                        	PUSH	DWORD [16+EBP]
+  1176 00000B2F FF 75 0C                        	PUSH	DWORD [12+EBP]
+  1177 00000B32 FF 75 08                        	PUSH	DWORD [8+EBP]
+  1178 00000B35 E8 FFFFFDA6                     	CALL	_IDEDriver_commandIdentify
+  1179 00000B3A 8B 4D 08                        	MOV	ECX,DWORD [8+EBP]
+  1180 00000B3D 89 C6                           	MOV	ESI,EAX
+  1181 00000B3F 8B B9 000000C8                  	MOV	EDI,DWORD [200+ECX]
+  1182 00000B45 6A 05                           	PUSH	5
+  1183 00000B47 51                              	PUSH	ECX
+  1184 00000B48 E8 FFFFFE05                     	CALL	_IDEDriver_sleep
+  1185 00000B4D 8D 85 FFFFFDF4                  	LEA	EAX,DWORD [-524+EBP]
+  1186 00000B53 50                              	PUSH	EAX
+  1187 00000B54 FF 75 10                        	PUSH	DWORD [16+EBP]
+  1188 00000B57 FF 75 0C                        	PUSH	DWORD [12+EBP]
+  1189 00000B5A FF 75 08                        	PUSH	DWORD [8+EBP]
+  1190 00000B5D E8 FFFFFD7E                     	CALL	_IDEDriver_commandIdentify
+  1191 00000B62 83 C4 28                        	ADD	ESP,40
+  1192 00000B65 8B 4D 08                        	MOV	ECX,DWORD [8+EBP]
+  1193 00000B68 8B 91 000000C8                  	MOV	EDX,DWORD [200+ECX]
+  1194 00000B6E 89 F1                           	MOV	ECX,ESI
+  1195 00000B70 84 C9                           	TEST	CL,CL
+  1196 00000B72 74 7F                           	JE	L225
+  1197 00000B74 84 C0                           	TEST	AL,AL
+  1198 00000B76 75 0F                           	JNE	L205
+  1199 00000B78                                 L206:
+  1200 00000B78 FE 85 FFFFFDF3                  	INC	BYTE [-525+EBP]
+  1201 00000B7E 80 BD FFFFFDF3 01               	CMP	BYTE [-525+EBP],1
+  1202 00000B85 76 9E                           	JBE	L214
+  1203 00000B87                                 L205:
+  1204 00000B87 80 BD FFFFFDF3 02               	CMP	BYTE [-525+EBP],2
+  1205 00000B8E 74 5B                           	JE	L226
+  1206 00000B90                                 L215:
+  1207 00000B90 8B 03                           	MOV	EAX,DWORD [EBX]
+  1208 00000B92 83 F8 03                        	CMP	EAX,3
+  1209 00000B95 74 0E                           	JE	L220
+  1210 00000B97 83 F8 03                        	CMP	EAX,3
+  1211 00000B9A 7F 15                           	JG	L223
+  1212 00000B9C 83 F8 02                        	CMP	EAX,2
+  1213 00000B9F 0F 85 FFFFFF78                  	JNE	L202
+  1214 00000BA5                                 L220:
+  1215 00000BA5 C7 43 04 FFFFFFFF               	MOV	DWORD [4+EBX],-1
+  1216 00000BAC E9 FFFFFF6C                     	JMP	L202
+  1217 00000BB1                                 L223:
+  1218 00000BB1 83 F8 04                        	CMP	EAX,4
+  1219 00000BB4 74 23                           	JE	L217
+  1220 00000BB6 83 F8 05                        	CMP	EAX,5
+  1221 00000BB9 0F 85 FFFFFF5E                  	JNE	L202
+  1222 00000BBF 8B 85 FFFFFDF4                  	MOV	EAX,DWORD [-524+EBP]
+  1223 00000BC5 83 E0 1F                        	AND	EAX,31
+  1224 00000BC8 0F B7 C0                        	MOVZX	EAX,AX
+  1225 00000BCB 89 43 04                        	MOV	DWORD [4+EBX],EAX
+  1226 00000BCE 66 C7 43 0C 0800                	MOV	WORD [12+EBX],2048
+  1227 00000BD4 E9 FFFFFF44                     	JMP	L202
+  1228 00000BD9                                 L217:
+  1229 00000BD9 C7 43 04 FFFFFFFF               	MOV	DWORD [4+EBX],-1
+  1230 00000BE0 66 C7 43 0C 0200                	MOV	WORD [12+EBX],512
+  1231 00000BE6 E9 FFFFFF32                     	JMP	L202
+  1232 00000BEB                                 L226:
+  1233 00000BEB C7 03 00000002                  	MOV	DWORD [EBX],2
+  1234 00000BF1 EB 9D                           	JMP	L215
+  1235 00000BF3                                 L225:
+  1236 00000BF3 84 C0                           	TEST	AL,AL
+  1237 00000BF5 0F 85 FFFFFF7D                  	JNE	L206
+  1238 00000BFB 39 D7                           	CMP	EDI,EDX
+  1239 00000BFD 0F 85 FFFFFF75                  	JNE	L206
+  1240 00000C03 83 FF 01                        	CMP	EDI,1
+  1241 00000C06 74 0E                           	JE	L213
+  1242 00000C08 83 FF 03                        	CMP	EDI,3
+  1243 00000C0B 74 09                           	JE	L213
+  1244 00000C0D 83 FF 02                        	CMP	EDI,2
+  1245 00000C10 0F 85 FFFFFF62                  	JNE	L206
+  1246 00000C16                                 L213:
+  1247 00000C16 C7 03 00000003                  	MOV	DWORD [EBX],3
+  1248 00000C1C E9 FFFFFF66                     	JMP	L205
+  1249 00000C21                                 	GLOBAL	_IDEDriver_selectDevice_2
+  1250 00000C21                                 _IDEDriver_selectDevice_2:
+  1251 00000C21 55                              	PUSH	EBP
+  1252 00000C22 89 E5                           	MOV	EBP,ESP
+  1253 00000C24 57                              	PUSH	EDI
+  1254 00000C25 56                              	PUSH	ESI
+  1255 00000C26 53                              	PUSH	EBX
+  1256 00000C27 8B 7D 10                        	MOV	EDI,DWORD [16+EBP]
+  1257 00000C2A 8B 5D 08                        	MOV	EBX,DWORD [8+EBP]
+  1258 00000C2D 8B 75 0C                        	MOV	ESI,DWORD [12+EBP]
+  1259 00000C30 8B 83 000000A0                  	MOV	EAX,DWORD [160+EBX]
+  1260 00000C36 85 C0                           	TEST	EAX,EAX
+  1261 00000C38 74 07                           	JE	L228
+  1262 00000C3A 8B 50 4C                        	MOV	EDX,DWORD [76+EAX]
+  1263 00000C3D 39 F0                           	CMP	EAX,ESI
+  1264 00000C3F 74 63                           	JE	L233
+  1265 00000C41                                 L228:
+  1266 00000C41 56                              	PUSH	ESI
+  1267 00000C42 53                              	PUSH	EBX
+  1268 00000C43 E8 FFFFF6FD                     	CALL	_IDEDriver_waitBusyAndDataRequestBothClear
+  1269 00000C48 59                              	POP	ECX
+  1270 00000C49 5A                              	POP	EDX
+  1271 00000C4A 31 D2                           	XOR	EDX,EDX
+  1272 00000C4C 84 C0                           	TEST	AL,AL
+  1273 00000C4E 75 0A                           	JNE	L234
+  1274 00000C50                                 L227:
+  1275 00000C50 8D 65 F4                        	LEA	ESP,DWORD [-12+EBP]
+  1276 00000C53 89 D0                           	MOV	EAX,EDX
+  1277 00000C55 5B                              	POP	EBX
+  1278 00000C56 5E                              	POP	ESI
+  1279 00000C57 5F                              	POP	EDI
+  1280 00000C58 5D                              	POP	EBP
+  1281 00000C59 C3                              	RET
+  1282 00000C5A                                 L234:
+  1283 00000C5A 57                              	PUSH	EDI
+  1284 00000C5B 53                              	PUSH	EBX
+  1285 00000C5C E8 00000068                     	CALL	_IDEDriver_deviceValue
+  1286 00000C61 59                              	POP	ECX
+  1287 00000C62 5A                              	POP	EDX
+  1288 00000C63 0F B6 C0                        	MOVZX	EAX,AL
+  1289 00000C66 50                              	PUSH	EAX
+  1290 00000C67 6A 06                           	PUSH	6
+  1291 00000C69 56                              	PUSH	ESI
+  1292 00000C6A 53                              	PUSH	EBX
+  1293 00000C6B E8 FFFFF5D8                     	CALL	_IDEDriver_outp8
+  1294 00000C70 6A 0A                           	PUSH	10
+  1295 00000C72 53                              	PUSH	EBX
+  1296 00000C73 E8 FFFFFCDA                     	CALL	_IDEDriver_sleep
+  1297 00000C78 56                              	PUSH	ESI
+  1298 00000C79 53                              	PUSH	EBX
+  1299 00000C7A E8 FFFFF6C6                     	CALL	_IDEDriver_waitBusyAndDataRequestBothClear
+  1300 00000C7F 31 D2                           	XOR	EDX,EDX
+  1301 00000C81 83 C4 20                        	ADD	ESP,32
+  1302 00000C84 84 C0                           	TEST	AL,AL
+  1303 00000C86 74 C8                           	JE	L227
+  1304 00000C88 89 F8                           	MOV	EAX,EDI
+  1305 00000C8A 89 B3 000000A0                  	MOV	DWORD [160+EBX],ESI
+  1306 00000C90 C1 E0 04                        	SAL	EAX,4
+  1307 00000C93 8D 44 30 2C                     	LEA	EAX,DWORD [44+EAX+ESI*1]
+  1308 00000C97 89 46 4C                        	MOV	DWORD [76+ESI],EAX
+  1309 00000C9A 89 78 08                        	MOV	DWORD [8+EAX],EDI
+  1310 00000C9D                                 L232:
+  1311 00000C9D BA 00000001                     	MOV	EDX,1
+  1312 00000CA2 EB AC                           	JMP	L227
+  1313 00000CA4                                 L233:
+  1314 00000CA4 39 7A 08                        	CMP	DWORD [8+EDX],EDI
+  1315 00000CA7 75 98                           	JNE	L228
+  1316 00000CA9 57                              	PUSH	EDI
+  1317 00000CAA 53                              	PUSH	EBX
+  1318 00000CAB E8 00000019                     	CALL	_IDEDriver_deviceValue
+  1319 00000CB0 59                              	POP	ECX
+  1320 00000CB1 5F                              	POP	EDI
+  1321 00000CB2 0F B6 C0                        	MOVZX	EAX,AL
+  1322 00000CB5 50                              	PUSH	EAX
+  1323 00000CB6 6A 06                           	PUSH	6
+  1324 00000CB8 56                              	PUSH	ESI
+  1325 00000CB9 53                              	PUSH	EBX
+  1326 00000CBA E8 FFFFF589                     	CALL	_IDEDriver_outp8
+  1327 00000CBF 6A 0A                           	PUSH	10
+  1328 00000CC1 53                              	PUSH	EBX
+  1329 00000CC2 E8 FFFFFC8B                     	CALL	_IDEDriver_sleep
+  1330 00000CC7 EB D4                           	JMP	L232
+  1331 00000CC9                                 	GLOBAL	_IDEDriver_deviceValue
+  1332 00000CC9                                 _IDEDriver_deviceValue:
+  1333 00000CC9 55                              	PUSH	EBP
+  1334 00000CCA 89 E5                           	MOV	EBP,ESP
+  1335 00000CCC 8B 45 0C                        	MOV	EAX,DWORD [12+EBP]
+  1336 00000CCF 5D                              	POP	EBP
+  1337 00000CD0 C1 E0 04                        	SAL	EAX,4
+  1338 00000CD3 83 C8 A0                        	OR	EAX,-96
+  1339 00000CD6 0F B6 C0                        	MOVZX	EAX,AL
+  1340 00000CD9 C3                              	RET
